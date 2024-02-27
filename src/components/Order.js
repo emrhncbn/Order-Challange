@@ -11,8 +11,13 @@ const Order = () => {
    }
    const handleSubmit = (e) =>{
     e.preventDefault()
-    setShoppingList([...shoppingList,orderList])
-    setOrderList("")
+    if (orderList.trim() !== "") {
+        const newItem = { id: crypto.randomUUID(), value: orderList }
+        setShoppingList([...shoppingList, newItem]);
+        setOrderList("");
+      }
+    // setShoppingList([...shoppingList,orderList])
+    // setOrderList("")
    }
    const handleDelete = (item) =>{
     const updatedList = shoppingList.filter((el) => el !== item)
@@ -41,7 +46,7 @@ const Order = () => {
             <ul>
             {shoppingList.map((item) => (
                 <li key={crypto.randomUUID()} className="shopping-list-item">
-                    {item}
+                    {item.value}
                     <button className="delete-button" onClick={() => handleDelete(item)}>X</button>
                 </li>
             ))}
